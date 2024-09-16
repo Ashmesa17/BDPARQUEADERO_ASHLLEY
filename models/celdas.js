@@ -11,7 +11,7 @@ const Counter = mongoose.model("Counter", CounterSchema);
 const CeldasSchema = new Schema({
     numeroCelda:{
         type: Number,
-        unique: true
+        unique: true,
     },
     estado: {
         type: String,

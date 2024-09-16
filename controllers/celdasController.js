@@ -1,6 +1,12 @@
 const Celdas= require('../models/celdas.js');
 
 const postCeldas= async (req,res)=>{
+  const limit = 10; // límite de registros
+  const count = await Celdas.countDocuments(); // cuenta el número de registros existentes
+
+  if (count >= limit) {
+    return res.status(400).json({ message: `No se pueden insertar más de ${limit} registros` });
+  }
   let msg='celda inserted'
   const body= req.body
   try{
@@ -57,24 +63,6 @@ const getCelda = async (req, res) => {
   };
 
   //Metodos
-
-  //limite de 10 celdas 
-
-  const maxCeldas = process.env.MAX_CELDAS || 10; 
-    const limiteCeldas = async (req, res) => {
-    const count = await Celdas.countDocuments();
-    if (count >= maxCeldas) {
-        res.status(403).json({ mensaje: `No se pueden crear más de ${maxCeldas} celdas` });
-    } else {
-        const celda = new Celdas({
-        estado: 'disponible'
-        });
-        await celda.save();
-        res.json(celda);
-    }
-    };
-
-    
 
   //parquear
 
@@ -159,7 +147,6 @@ module.exports= {
     deleteCeldas,
     parquear,
     calcularValorAPagar,
-    limiteCeldas,
     salir
 }
 

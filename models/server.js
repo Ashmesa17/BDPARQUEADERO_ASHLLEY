@@ -2,7 +2,7 @@ const express = require('express');
 const dbConnect = require('../database/config');
 require('../database/config.js')
 const {getCeldas, getCelda, postCeldas, getCeldasDisponibles, putCeldas, deleteCeldas,
-     parquear, calcularValorAPagar, salir, limiteCeldas}= require ('../controllers/celdasController.js')
+     parquear, calcularValorAPagar, salir}= require ('../controllers/celdasController.js')
 
 
 
@@ -33,7 +33,6 @@ class Server{
         this.app.get(`${this.pathCeldas}/:estado`, getCeldasDisponibles);
         this.app.put(`${this.pathCeldas}/:id`, putCeldas);
         this.app.delete(`${this.pathCeldas}/:id`, deleteCeldas);
-        this.app.post(`${this.pathCeldas}`, limiteCeldas);
         this.app.post(`${this.pathParquear}`, parquear);
         this.app.get(`${this.pathPagos }/:id`, calcularValorAPagar);
         this.app.post(`${this.pathSalida}/:id`, salir);
